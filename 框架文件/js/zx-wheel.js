@@ -7,12 +7,12 @@
             this.step = 0;
             this.state = false;
             this.scale = data.scale?data.scale:2/3;
-            this.father = data.father?'.x-broadcast ' + '.' + data.father:'.x-broadcast';
+            this.father = data.father?'.zx-broadcast ' + '.' + data.father:'.zx-broadcast';
             this.boxPadding = data.boxPadding?data.boxPadding:'0 10px';
         }else{
             this.speed = 300;
             this.grid = 1;
-            this.father = '.x-broadcast';
+            this.father = '.zx-broadcast';
             this.scale = 2/3;
             this.step = 0;
             this.state = false;
@@ -23,7 +23,7 @@
         //初始化函数
         init:function(){
             //选出x-imgBox
-            var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
+            var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
             //通过轮播放几张图片-grid算出每个box的宽度
             var boxWidth = $(this.father).width()/this.grid;
             //通过比例算出每个box的高度
@@ -38,7 +38,7 @@
             $(this.father).height(boxHeight);
             //如果图片给的数量正好等于grid的数量，那么最后一个box右内边距为0
             //选出包裹imgBox的imgList
-            var selectorImgList = this.father + ' .x-imgList';
+            var selectorImgList = this.father + ' .zx-imgList';
             /////////////剩下的就开始克隆图片了
             var imgBoxs = $(selectorImgBox);
             //通过循环来计算出imgList的宽度
@@ -53,19 +53,19 @@
         //左边箭头-向右移动
         moveLeft:function(){
             if(!this.state){
-                var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
-                var selectorImgList = this.father + ' .x-imgList';
+                var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
+                var selectorImgList = this.father + ' .zx-imgList';
                 this.step--;
                 if(this.step < 0){
                     this.step = $(selectorImgBox).length - 1;
                 }
                 var step = $(selectorImgBox).width();
                 var newElement = $(selectorImgBox).last().clone(true);
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 $(selectorImgList).prepend(newElement);
                 $(selectorImgList).css('left',(left - step) + 'px');
                 $(selectorImgBox).last().remove();
-                left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 var _this = this;
                 $(selectorImgList).animate({left:(left + step) + 'px'},this.speed,function(){
                     _this.state = false;
@@ -76,30 +76,30 @@
         //右边箭头-向左移动
         moveRight:function(){
             if(!this.state){
-                var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
-                var selectorImgList = this.father + ' .x-imgList';
+                var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
+                var selectorImgList = this.father + ' .zx-imgList';
                 this.step++;
                 if(this.step > $(selectorImgBox).length - 1){
                     this.step = 0;
                 }
                 var step = $(selectorImgBox).width();
                 var newElement = $(selectorImgBox).eq(0).clone(true);
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 $(selectorImgList).append(newElement);
                 var _this = this;
                 $(selectorImgList).animate({left:(left - step) + 'px'},this.speed,function(){
                     _this.state = false;
                     $(selectorImgBox).first().remove();
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left + step) + 'px');
                 });
                 this.state = true;
             }
         },
         roundMove:function(index){
-            var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
-            var selectorImgList = this.father + ' .x-imgList';
-            var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+            var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
+            var selectorImgList = this.father + ' .zx-imgList';
+            var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
             var distance = index - this.step;
             if(distance < 0 && left == 0){
                 if(!this.state){
@@ -110,12 +110,12 @@
                     var newElement = $(selectorImgBox).eq($(selectorImgBox).length - i).clone(true);
                     $(selectorImgList).prepend(newElement);
                     }
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left - distance * step) + 'px');
                     for(var i = 1; i <= distance;i++){
                         $(selectorImgBox).last().remove();
                     }
-                    left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     var _this = this;
                     $(selectorImgList).animate({left:(left + distance * step) + 'px'},this.speed,function(){
                         _this.state = false;
@@ -130,14 +130,14 @@
                     var newElement = $(selectorImgBox).eq(i).clone(true);
                     $(selectorImgList).append(newElement);
                 }
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 var _this = this;
                 $(selectorImgList).animate({left:(left - distance * step) + 'px'},this.speed,function(){
                     _this.state = false;
                     for(var i = 0; i < distance;i++){
                         $(selectorImgBox).eq(0).remove();
                     }
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left + distance * step) + 'px');
                 });
             }else{
@@ -147,3 +147,4 @@
     }
     window.Broadcast = Broadcast;
 })(window,document);
+
