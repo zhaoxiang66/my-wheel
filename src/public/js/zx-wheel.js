@@ -61,11 +61,11 @@
                 }
                 var step = $(selectorImgBox).width();
                 var newElement = $(selectorImgBox).last().clone(true);
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 $(selectorImgList).prepend(newElement);
                 $(selectorImgList).css('left',(left - step) + 'px');
                 $(selectorImgBox).last().remove();
-                left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 var _this = this;
                 $(selectorImgList).animate({left:(left + step) + 'px'},this.speed,function(){
                     _this.state = false;
@@ -84,13 +84,13 @@
                 }
                 var step = $(selectorImgBox).width();
                 var newElement = $(selectorImgBox).eq(0).clone(true);
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 $(selectorImgList).append(newElement);
                 var _this = this;
                 $(selectorImgList).animate({left:(left - step) + 'px'},this.speed,function(){
                     _this.state = false;
                     $(selectorImgBox).first().remove();
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left + step) + 'px');
                 });
                 this.state = true;
@@ -99,7 +99,7 @@
         roundMove:function(index){
             var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
             var selectorImgList = this.father + ' .zx-imgList';
-            var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+            var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
             var distance = index - this.step;
             if(distance < 0 && left == 0){
                 if(!this.state){
@@ -110,12 +110,12 @@
                     var newElement = $(selectorImgBox).eq($(selectorImgBox).length - i).clone(true);
                     $(selectorImgList).prepend(newElement);
                     }
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left - distance * step) + 'px');
                     for(var i = 1; i <= distance;i++){
                         $(selectorImgBox).last().remove();
                     }
-                    left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     var _this = this;
                     $(selectorImgList).animate({left:(left + distance * step) + 'px'},this.speed,function(){
                         _this.state = false;
@@ -130,14 +130,14 @@
                     var newElement = $(selectorImgBox).eq(i).clone(true);
                     $(selectorImgList).append(newElement);
                 }
-                var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                 var _this = this;
                 $(selectorImgList).animate({left:(left - distance * step) + 'px'},this.speed,function(){
                     _this.state = false;
                     for(var i = 0; i < distance;i++){
                         $(selectorImgBox).eq(0).remove();
                     }
-                    var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
+                    var left = $(selectorImgList).css('left').slice(0,-2) - 1 + 1;
                     $(selectorImgList).css('left',(left + distance * step) + 'px');
                 });
             }else{
