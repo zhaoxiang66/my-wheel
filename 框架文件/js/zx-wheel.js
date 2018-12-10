@@ -7,12 +7,12 @@
             this.step = 0;
             this.state = false;
             this.scale = data.scale?data.scale:2/3;
-            this.father = data.father?'.zx-broadcast ' + '.' + data.father:'.zx-broadcast';
+            this.father = data.father?'.x-broadcast ' + '.' + data.father:'.x-broadcast';
             this.boxPadding = data.boxPadding?data.boxPadding:'0 10px';
         }else{
             this.speed = 300;
             this.grid = 1;
-            this.father = '.zx-broadcast';
+            this.father = '.x-broadcast';
             this.scale = 2/3;
             this.step = 0;
             this.state = false;
@@ -23,7 +23,7 @@
         //初始化函数
         init:function(){
             //选出x-imgBox
-            var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
+            var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
             //通过轮播放几张图片-grid算出每个box的宽度
             var boxWidth = $(this.father).width()/this.grid;
             //通过比例算出每个box的高度
@@ -38,7 +38,7 @@
             $(this.father).height(boxHeight);
             //如果图片给的数量正好等于grid的数量，那么最后一个box右内边距为0
             //选出包裹imgBox的imgList
-            var selectorImgList = this.father + ' .zx-imgList';
+            var selectorImgList = this.father + ' .x-imgList';
             /////////////剩下的就开始克隆图片了
             var imgBoxs = $(selectorImgBox);
             //通过循环来计算出imgList的宽度
@@ -53,8 +53,8 @@
         //左边箭头-向右移动
         moveLeft:function(){
             if(!this.state){
-                var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
-                var selectorImgList = this.father + ' .zx-imgList';
+                var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
+                var selectorImgList = this.father + ' .x-imgList';
                 this.step--;
                 if(this.step < 0){
                     this.step = $(selectorImgBox).length - 1;
@@ -76,8 +76,8 @@
         //右边箭头-向左移动
         moveRight:function(){
             if(!this.state){
-                var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
-                var selectorImgList = this.father + ' .zx-imgList';
+                var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
+                var selectorImgList = this.father + ' .x-imgList';
                 this.step++;
                 if(this.step > $(selectorImgBox).length - 1){
                     this.step = 0;
@@ -97,8 +97,8 @@
             }
         },
         roundMove:function(index){
-            var selectorImgBox = this.father + ' .zx-imgList .zx-imgBox';
-            var selectorImgList = this.father + ' .zx-imgList';
+            var selectorImgBox = this.father + ' .x-imgList .x-imgBox';
+            var selectorImgList = this.father + ' .x-imgList';
             var left = Math.floor($(selectorImgList).css('left').slice(0,-2));
             var distance = index - this.step;
             if(distance < 0 && left == 0){
@@ -147,4 +147,3 @@
     }
     window.Broadcast = Broadcast;
 })(window,document);
-

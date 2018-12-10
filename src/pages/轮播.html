@@ -4,27 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_924935_fu6gm0noxoc.css">
     <title>首页</title>
 </head>
 <body>
-    <div class = "home">
-        我是首页
-        <ul class = "list"></ul>
-        <div id = "pagination"></div>
-    </div>
-    <!-- <div class = "x-broadcast">
-        <div class = "homeBroadcast">
-            <div class = "x-imgList">
-                {{each data value index}}
-                    <div class = "x-imgBox">
-                        <img src = "{{value.cover}}" alt="">
-                        <div class = "mask">
-                            {{value.title}}
-                        </div>
-                    </div>
-                {{/each}}
+    <div class = "lunbo">
+        <div class = "listBox">
+            <div>
+                <a href = "#">1. 回到顶部</a>
+            </div>
+            <div>
+                <a href = "#base">2. 基本用法</a>
+            </div>
+            <div>
+                <a href = "#base">3. 属性讲解</a>
             </div>
         </div>
-    </div> -->
+        <h1 id= "base">1、基本用法</h1>
+        <div class = "html">
+            <div class = "title">html : </div>
+            <div class = "code">
+                <xmp>
+                    <div class = "imgBox">
+                        <div class = "zx-broadcast">
+                            <!-- 此处可加任何代码 比如加轮播的圆点 和左右拉动箭头-->
+                            <!-- 小圆点 -->
+                            <ul class = "round">
+                                <li class = "active"></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <!-- 左右拉箭头 -->
+                            <svg class = "icon left" aria-hidden="true">
+                                <use xlink:href="#zuoyou1"></use>
+                            </svg>
+                            <svg class = "icon right" aria-hidden="true">
+                                <use xlink:href="#zuoyou"></use>
+                            </svg>
+                            <!-- 图片列表 -->
+                            <div class = "zx-imgList">
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo1.jpg" alt="">
+                                </div>
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo2.jpg" alt="">
+                                </div>
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo3.jpg" alt="">
+                                </div>
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo4.jpg" alt="">
+                                </div>
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo5.jpg" alt="">
+                                </div>
+                                <div class = "zx-imgBox">
+                                    <img src = "/assets/imgs/lunbo6.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xmp>
+            </div>
+        </div>
+        <div class = "css">
+            <div class = "title">css : </div>
+            <div class = "code">
+                <xmp>
+                    .imgBox {
+                        width:600px;
+                        margin:auto;
+                        position:relative;
+                    }
+                    .imgBox .round {
+                        position:absolute;
+                        z-index:2000;
+                        bottom:10px;
+                        left:50%;
+                        transform:translateX(-50%);
+                    }
+                    .imgBox .round li {
+                        display:inline-block;
+                        width:15px;
+                        height:15px;
+                        background:#fff;
+                        border-radius:50%;
+                        margin-right:5px;
+                        cursor:pointer;
+                    }
+                    .imgBox .round .active {
+                        background:#6495EE;
+                    }
+                    .imgBox .left {
+                        position:absolute;
+                        top:45%;
+                        left:0px;
+                        color:#fff;
+                        font-size:50px;
+                        z-index:2000;
+                        cursor:pointer;
+                    }
+                    .imgBox .right {
+                        position:absolute;
+                        top:45%;
+                        right:0px;
+                        z-index:2000;
+                        color:#fff;
+                        font-size:50px;
+                        cursor:pointer;
+                    }   
+                </xmp>
+            </div>
+        </div>
+        <div class = "js">
+            <div class = "title">js : </div>
+            <div class = "code">
+                <xmp>
+                    $(function(){
+                        console.log("欢迎来到轮播界面");
+                        var myBroadcast = new Broadcast(
+                            {
+                                speed : 300,
+                                grid : 1,
+                                scale : 2/3,
+                                step : 0,
+                                state : false,
+                                boxPadding : "0"
+                            }
+                        )
+                        //初始化轮播
+                        myBroadcast.init();
+                        function run(){
+                            myBroadcast.moveRight();
+                            $('.lunbo .imgBox .round li').eq(myBroadcast.step).addClass('active').siblings().removeClass('active');
+                        }
+                        var timer;
+                        timer = setInterval(run,4000);
+                        //点击小圆点事件
+                        $('.lunbo .imgBox .round li').on('click',function(){
+                            var index = $(this).index();
+                            myBroadcast.roundMove(index);
+                            $(this).addClass('active').siblings().removeClass('active');
+                        })
+                        //右拉箭头事件
+                        $('.lunbo .imgBox .right').on('click',function(){
+                            var index = $(this).index();
+                            myBroadcast.moveRight();
+                            $('.lunbo .imgBox .round li').eq(myBroadcast.step).addClass('active').siblings().removeClass('active');
+                        })
+                        //左拉箭头事件
+                        $('.lunbo .imgBox .left').on('click',function(){
+                            var index = $(this).index();
+                            myBroadcast.moveLeft();
+                            $('.lunbo .imgBox .round li').eq(myBroadcast.step).addClass('active').siblings().removeClass('active');
+                        })
+                        //给最外边imgbox加鼠标进入，清除定时器
+                        $('.lunbo .imgBox').on('mouseenter',function(){
+                            clearInterval(timer);
+                        })
+                        //给最外边imgbox加鼠标移出，加上定时器
+                        $('.lunbo .imgBox').on('mouseleave',function(){
+                            timer = setInterval(run,4000);
+                        })
+                    })
+                </xmp>
+            </div>
+        </div>
+        <div class = "js">
+            <div class = "title">运行结果 : </div>
+            <div class = "imgBox">
+                <div class = "zx-broadcast">
+                    <!-- 此处可加任何代码 比如加轮播的圆点 和左右拉动箭头-->
+                    <ul class = "round">
+                        <li class = "active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <div class = "zx-imgList">
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo1.jpg" alt="">
+                        </div>
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo2.jpg" alt="">
+                        </div>
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo3.jpg" alt="">
+                        </div>
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo4.jpg" alt="">
+                        </div>
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo5.jpg" alt="">
+                        </div>
+                        <div class = "zx-imgBox">
+                            <img src = "/assets/imgs/lunbo6.jpg" alt="">
+                        </div>
+                    </div>
+                    <svg class = "icon left" aria-hidden="true">
+                        <use xlink:href="#zuoyou1"></use>
+                    </svg>
+                    <svg class = "icon right" aria-hidden="true">
+                        <use xlink:href="#zuoyou"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

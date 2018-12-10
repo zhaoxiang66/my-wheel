@@ -1,8 +1,8 @@
-.x-broadcast {
+.zx-broadcast {
     width: 100%;
     overflow: hidden;
     position: relative;
-    .x-imgList{
+    .zx-imgList{
         position: absolute;
         left: 0;
         &:after{
@@ -10,7 +10,7 @@
             display: block;
             clear: both;
         }
-        .x-imgBox{
+        .zx-imgBox{
             float: left;
             position: relative;
             img{

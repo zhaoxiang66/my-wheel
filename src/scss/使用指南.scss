@@ -1,0 +1,31 @@
+.guide{
+    font-size: 18px;
+    .bigTitle{
+        text-align: center;
+        font-size:30px;
+        margin-top:10px;
+        color:#333;
+        font-weight: bold;
+    }
+    .guideContent{
+        padding:20px;
+        padding-bottom:40px;
+        h2{
+            font-size: 25px;
+            color:#333;
+            font-weight: bold;
+            margin-top:15px;
+        }
+        .cdn{
+            background: #ddd;
+            margin-top:10px;
+            border-radius: 5px;
+            color:#333;
+        }
+        .content{
+            text-indent: 2em;
+            line-height: 30px;
+            margin-top:10px;
+        }
+    }
+}
